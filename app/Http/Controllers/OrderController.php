@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Order;
+use Validator;
 
 class OrderController extends Controller
 {
@@ -34,7 +36,35 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'sname' => 'required',
+            'sphone' => 'required',
+            'rname' => 'required',
+            'rphone' => 'required',
+            'address' => 'required',
+            'product_details' => 'required',
+            'service_charge' => 'required',
+            'payment_status' => 'required',
+            'ref_id' => 'required',
+            'note' => 'required',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $orderObj = new Order();
+        $orderObj->customer_name = $request->sname;
+        $orderObj->customer_phone = $request->sphone;
+        $orderObj->receiver_name = $request->rname;
+        $orderObj->receiver_phone = $request->rphone;
+        $orderObj->receiver_address = $request->address;
+        $orderObj->product_details = $request->product_details;
+        $orderObj->service_charge = $request->service_charge;
+        $orderObj->payment_status = $request->payment_status;
+        $orderObj->ref_id = $request->ref_id;
+        $orderObj->note = $request->note;
+        $orderObj->save();
+
+        return redirect()->route('order.index')->with('success', 'Order Place Successfully');
     }
 
     /**

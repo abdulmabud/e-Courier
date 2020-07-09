@@ -9,7 +9,8 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h4 class="text-primary text-center">Customer Details</h4>
-                <form action="" class="form-group">
+                <form action="{{ route('order.store') }}" method="POST" class="form-group">
+                    @csrf
                 <table class="table">
                     <tr>
                         <td>Name</td>
@@ -53,7 +54,7 @@
                     <tr>
                         <td>Payment Staus</td>
                         <td>
-                            <select name="payment-status" class="form-control">
+                            <select name="payment_status" class="form-control">
                                 <option value="Paid">Paid</option>
                                 <option value="Due">Due</option>
                             </select>
@@ -62,6 +63,10 @@
                     <tr>
                         <td>Reference Id</td>
                         <td><input type="text" name="ref_id" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td>Note</td>
+                        <td><input type="text" name="note" class="form-control"></td>
                     </tr>
                 </table>
                 <input type="submit" value="Place New Order" class="btn btn-primary btn-block">
