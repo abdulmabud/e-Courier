@@ -12,3 +12,6 @@
 */
 
 Route::get('/', 'BackendController@index')->name('dashboard');
+
+
+Route::resource('order', 'OrderController');
