@@ -15,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('backend.order.index');
+        $data['orders'] = Order::select('id', 'created_at', 'receiver_name', 'receiver_phone', 'service_charge', 'payment_status', 'ref_id')->orderBy('id', 'DESC')->get();
+        return view('backend.order.index', $data);
     }
 
     /**
