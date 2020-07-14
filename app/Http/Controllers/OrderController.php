@@ -76,7 +76,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['order'] = Order::where('id', $id)->first();
+        return view('backend.order.orderdetails', $data);
     }
 
     /**

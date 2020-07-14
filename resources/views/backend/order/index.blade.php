@@ -19,6 +19,7 @@
                     <td>Charge</td>
                     <td>Payment</td>
                     <td>Ref_id</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                     <td>{{ $order->service_charge }}</td>
                     <td>{!! $order->payment_status=='Paid'?'<span style="padding: 3px 9px; color: white; border-radius: 5px;" class="bg-success">Paid</span>':'<span style="padding: 3px 9px; color: white; border-radius: 5px;" class="bg-danger">Due</span>' !!}</td>
                     <td>{{ $order->ref_id }}</td>
+                    <td><a href="{{ route('order.show', $order->id) }}" class="btn btn-primary">Details</a></td>
                 </tr> 
                 @endforeach
             </tbody>
