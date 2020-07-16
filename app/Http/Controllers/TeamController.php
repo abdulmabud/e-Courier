@@ -25,6 +25,11 @@ class TeamController extends Controller
         }
     }
 
+    public function index(){
+        $data['teams'] = User::select('id', 'name', 'phone', 'email', 'role')->get();
+        return view('team.index', $data);
+    }
+
     public function addTeam(){
         return view('team.addteam');
     }

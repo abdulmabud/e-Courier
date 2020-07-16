@@ -19,5 +19,6 @@ Route::resource('order', 'OrderController');
 //TeamController
 Route::get('/login', 'TeamController@login')->name('login');
 Route::post('/login', 'TeamController@processLogin')->name('login');
+Route::get('/team', 'TeamController@index')->name('team.index');
 Route::get('/team/add', 'TeamController@addTeam')->name('team.add');
 Route::post('/addteam', 'TeamController@storeTeam')->name('team.store');
