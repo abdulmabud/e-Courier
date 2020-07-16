@@ -15,9 +15,11 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name', 50);
             $table->string('role', 30);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
