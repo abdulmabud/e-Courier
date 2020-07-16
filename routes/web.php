@@ -15,3 +15,7 @@ Route::get('/', 'BackendController@index')->name('dashboard');
 
 
 Route::resource('order', 'OrderController');
+
+//TeamController
+Route::get('/login', 'TeamController@login')->name('login');
+Route::post('/login', 'TeamController@processLogin')->name('login');
