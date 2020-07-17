@@ -22,3 +22,6 @@ Route::post('/login', 'TeamController@processLogin')->name('login');
 Route::get('/team', 'TeamController@index')->name('team.index');
 Route::get('/team/add', 'TeamController@addTeam')->name('team.add');
 Route::post('/addteam', 'TeamController@storeTeam')->name('team.store');
+Route::get('/team/edit/{id}', 'TeamController@editTeam')->name('team.edit');
+Route::post('/team/update/{id}', 'TeamController@updateTeam')->name('team.update');
+Route::delete('/team/destroy/{id}', 'TeamController@destroyTeam')->name('team.destroy');

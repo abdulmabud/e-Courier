@@ -43,8 +43,7 @@ class TeamController extends Controller
         ]);
 
         if($validator->fails()){
-            // return redirect()->route('');
-            dd('not valid');
+            return redirect()->back()->withErrors($validator);
         }
      
         $userObj = new User();
@@ -55,5 +54,40 @@ class TeamController extends Controller
         $userObj->password = Hash::make($request->password);
         $userObj->role = $request->role;
         $userObj->save();
+        return redirect()->route('team.index')->with('success', 'Team Member Added Successfully');
+    }
+
+    public function editTeam($id){
+        $data['team'] = User::select('id', 'name', 'phone', 'email', 'role')->where('id', $id)->first();
+        return view('team.editteam', $data);
+    }
+
+    public function updateTeam(Request $request, $id){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator);
+        }
+     
+        $userObj = User::find($id);
+
+        $userObj->name = $request->name;
+        $userObj->phone = $request->phone;
+        $userObj->email = $request->email;
+        $userObj->password = Hash::make($request->password);
+        $userObj->role = $request->role;
+        $userObj->save();
+        return redirect()->route('team.index')->with('success', 'Team Member Updated Successfully');
+    }
+
+    public function destroyTeam($id){
+        User::find($id)->delete();
+       
+        return redirect()->route('team.index')->with('success', 'Team Member Delete Successfully');
     }
 }

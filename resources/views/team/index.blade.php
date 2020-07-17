@@ -28,8 +28,12 @@
                         <td>{{ $team->email }}</td>
                         <td>{{ $team->role }}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('team.edit', $team->id) }}" class="btn btn-primary">Edit</a>
+                            <form action="{{ route('team.destroy', $team->id) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
                         </td>
                     </tr>
                 @endforeach
