@@ -19,7 +19,7 @@ class CreateOrderStatusesTable extends Migration
             $table->string('status', 30);
             $table->unsignedBigInteger('change_by')->default(0);
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('change_by')->references('id')->on('teams');
+            $table->foreign('change_by')->references('id')->on('users');
             $table->timestamps();
         });
     }
