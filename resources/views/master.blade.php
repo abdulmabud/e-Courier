@@ -15,6 +15,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{{ asset('custom/css/simple-sidebar.css') }}" rel="stylesheet">
+  <link href="{{ asset('custom/css/style.css') }}" rel="stylesheet">
     @yield('customcss')
 </head>
 
