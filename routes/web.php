@@ -26,3 +26,6 @@ Route::post('/addteam', 'TeamController@storeTeam')->name('team.store');
 Route::get('/team/edit/{id}', 'TeamController@editTeam')->name('team.edit');
 Route::post('/team/update/{id}', 'TeamController@updateTeam')->name('team.update');
 Route::delete('/team/destroy/{id}', 'TeamController@destroyTeam')->name('team.destroy');
+
+//LocationController
+Route::resource('/location','LocationController');

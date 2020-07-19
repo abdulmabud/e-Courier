@@ -127,7 +127,7 @@ class OrderController extends Controller
         if(Auth::check()){
             $user_id = Auth::user()->id;
         }
-        // return $request->order_status;
+
         $statusObj = new OrderStatus();
         $statusObj->order_id = $request->order_id;
         $statusObj->status = $request->order_status;

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Location;
+use Validator;
 
 class LocationController extends Controller
 {
@@ -13,7 +15,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $data['locations'] = Location::orderBy('id', 'DESC')->get();
+        return view('location.index', $data);
     }
 
     /**
@@ -23,7 +26,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('location.addlocation');
     }
 
     /**
@@ -34,7 +37,20 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $locationObj = new Location();
+        $locationObj->name = $request->name;
+        $locationObj->status = $request->status;
+        $locationObj->save();
+
+        return redirect()->route('location.index')->with('success', 'Location Added Successfully');
     }
 
     /**
