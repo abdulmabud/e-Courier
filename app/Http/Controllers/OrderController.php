@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\OrderStatus;
 use Validator;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -112,5 +114,24 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function statuschanage(Request $request){
+        $validator = Validator::make($request->all(),[
+            'order_id' => 'required',
+            'order_status' => 'required',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if(Auth::check()){
+            $user_id = Auth::user()->id;
+        }
+        // return $request->order_status;
+        $statusObj = new OrderStatus();
+        $statusObj->order_id = $request->order_id;
+        $statusObj->status = $request->order_status;
+        $statusObj->change_by = $user_id;
+        $statusObj->save();
     }
 }
