@@ -72,7 +72,8 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['location'] = Location::find($id);
+        return view('location.editlocation', $data);
     }
 
     /**
@@ -84,7 +85,20 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $locationObj = Location::find($id);
+        $locationObj->name = $request->name;
+        $locationObj->status = $request->status;
+        $locationObj->save();
+
+        return redirect()->route('location.index')->with('success', 'Location Updated Successfully');
     }
 
     /**
@@ -95,6 +109,7 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Location::find($id)->delete();
+        return redirect()->route('location.index')->with('success', 'Location Deleted Successfully');
     }
 }

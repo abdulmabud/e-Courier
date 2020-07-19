@@ -16,7 +16,7 @@
                     <td>Created Date</td>
                     <td>Name</td>
                     <td>Status</td>
-                    <td>Action</td>
+                    <td style="width:20%;">Action</td>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,14 @@
                     <td>{{ date_format($location->created_at, 'd-M-y h:i a') }}</td>
                     <td>{{ $location->name }}</td>
                     <td>{!! $location->status == 1 ?'<span style="padding: 3px 9px; color: white; border-radius: 5px;" class="bg-success">Publish</span>':'<span style="padding: 3px 9px; color: white; border-radius: 5px;" class="bg-danger">Unpublish</span>' !!}</td>
-                    <td><a href="{{ route('location.edit', $location->id) }}" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{{ route('location.edit', $location->id) }}" class="btn btn-primary">EDIT</a>
+                    <form action="{{ route('location.destroy', $location->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" value="DELETE" class="btn btn-danger">
+                    </form>
+                    
+                    </td>
                 </tr> 
                 @endforeach
             </tbody>
