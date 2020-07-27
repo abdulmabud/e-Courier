@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\OrderStatus;
+use App\Location;
 use Validator;
 use Auth;
 
@@ -28,7 +29,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('backend.order.createorder');
+        $data['locations'] = Location::select('id', 'name')->where('status', 1)->get();
+        return view('backend.order.createorder', $data);
     }
 
     /**

@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h4 class="text-primary text-center">Customer Details</h4>
-                <form action="{{ route('order.store') }}" method="POST" class="form-group">
+                <form action="{{ route('order.store') }}" method="POST" id="orderform" class="form-group">
                     @csrf
                 <table class="table">
                     <tr>
@@ -34,9 +34,11 @@
                     <tr>
                         <td>Address</td>
                         <td>
-                            <select name="address" class="form-control">
-                                <option value="Dhaka">Dhaka</option>
-                                <option value="Meherpur">Meherpur</option>
+                            <select name="address" class="form-control" id="address">
+                                <option value="No Loction Selected">----</option>
+                                @foreach ($locations as $location)
+                                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                @endforeach
                             </select>
                         </td>
                     </tr>
@@ -74,4 +76,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('customjs')
+    <script>
+        $('#orderform').submit(function(e){
+            var address = $('#address').val();
+            if(address == 'No Loction Selected'){
+                e.preventDefault();
+                alert('Please Select Address First !');
+            }
+        });
+    </script>
 @endsection
