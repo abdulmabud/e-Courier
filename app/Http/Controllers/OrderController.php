@@ -69,6 +69,16 @@ class OrderController extends Controller
         $orderObj->note = $request->note;
         $orderObj->save();
 
+        if(Auth::check()){
+            $user_id = Auth::user()->id;
+        }
+
+        $statusObj = new OrderStatus();
+        $statusObj->order_id = $orderObj->id;
+        $statusObj->status = 'Pending';
+        $statusObj->change_by = $user_id;
+        $statusObj->save();
+
         return redirect()->route('order.index')->with('success', 'Order Place Successfully');
     }
 
